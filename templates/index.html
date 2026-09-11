@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Address Lookup</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="console">
+
+  <header class="console-head">
+    <div class="console-head-text">
+      <h1><a href="https://github.com/Aero-Kent/IPanLocator" target="_blank" rel="noopener">IPanLocator</a></h1>
+      <p>Runs a lookup against ipinfo.io from wherever this server is hosted, and reads back the address, network, and place it resolves to.</p>
+    </div>
+    <button id="run-btn" class="run-btn">Run lookup</button>
+  </header>
+
+  <div class="route" id="route" aria-hidden="true">
+    <div class="route-node" data-node="client">
+      <span class="route-dot"></span>
+      <span class="route-label">This server</span>
+    </div>
+    <div class="route-line" id="line-1"></div>
+    <div class="route-node" data-node="network">
+      <span class="route-dot"></span>
+      <span class="route-label">Your network</span>
+    </div>
+    <div class="route-line" id="line-2"></div>
+    <div class="route-node" data-node="ipinfo">
+      <span class="route-dot"></span>
+      <span class="route-label">ipinfo.io</span>
+    </div>
+  </div>
+
+  <div class="hero" id="hero">
+    <span class="hero-label">Public IP address</span>
+    <span class="hero-value" id="hero-ip">—</span>
+  </div>
+
+  <div class="readout" id="readout">
+    <div class="readout-row">
+      <span class="readout-label">ASN</span>
+      <span class="readout-value mono" id="val-asn">—</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-label">Internet provider</span>
+      <span class="readout-value" id="val-isp">—</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-label">Provider domain</span>
+      <span class="readout-value mono" id="val-domain">—</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-label">Country</span>
+      <span class="readout-value" id="val-country">—</span>
+    </div>
+    <div class="readout-row">
+      <span class="readout-label">Continent</span>
+      <span class="readout-value" id="val-continent">—</span>
+    </div>
+  </div>
+
+  <div class="status" id="status">Waiting to run.</div>
+
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

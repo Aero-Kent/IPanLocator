@@ -1,0 +1,264 @@
+:root {
+  --ink: #0F1720;
+  --panel: #16212C;
+  --hairline: #263140;
+  --text: #E6EDF3;
+  --muted: #7E8FA0;
+  --signal: #59D6C2;
+  --signal-dim: #2E4B47;
+  --alert: #F2637A;
+  --alert-dim: #4A2B33;
+
+  --sans: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--sans);
+}
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+}
+
+.console {
+  width: 100%;
+  max-width: 640px;
+  background: var(--panel);
+  border: 1px solid var(--hairline);
+  border-radius: 10px;
+  padding: 32px;
+}
+
+/* ---- Header ---- */
+
+.console-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 28px;
+}
+
+.console-head-text h1 {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 8px 0;
+  max-width: 34ch;
+}
+
+.console-head-text h1 a {
+  color: var(--text);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hairline);
+  transition: border-color 0.15s ease, color 0.15s ease;
+}
+
+.console-head-text h1 a:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.console-head-text h1 a:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 3px;
+}
+
+.console-head-text p {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+  margin: 0;
+  max-width: 40ch;
+}
+
+.run-btn {
+  flex-shrink: 0;
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  background: var(--signal);
+  border: none;
+  border-radius: 6px;
+  padding: 11px 18px;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.run-btn:hover { background: #74e0cf; }
+.run-btn:active { transform: scale(0.98); }
+.run-btn:disabled { background: var(--signal-dim); color: var(--muted); cursor: progress; }
+.run-btn:focus-visible { outline: 2px solid var(--signal); outline-offset: 2px; }
+
+/* ---- Route diagram ---- */
+
+.route {
+  display: flex;
+  align-items: center;
+  padding: 18px 4px 26px 4px;
+}
+
+.route-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.route-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--hairline);
+  border: 1px solid var(--muted);
+  transition: background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.route-node.active .route-dot {
+  background: var(--signal);
+  border-color: var(--signal);
+  box-shadow: 0 0 0 4px var(--signal-dim);
+}
+
+.route-label {
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.route-line {
+  flex: 1;
+  height: 1px;
+  background: var(--hairline);
+  margin: 0 6px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.route-line::after {
+  content: "";
+  position: absolute;
+  top: 0; left: -30%;
+  width: 30%;
+  height: 100%;
+  background: var(--signal);
+  opacity: 0;
+}
+
+.route-line.pulsing::after {
+  opacity: 1;
+  animation: travel 0.7s ease-in-out;
+}
+
+@keyframes travel {
+  from { left: -30%; }
+  to { left: 100%; }
+}
+
+/* ---- Hero ---- */
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 20px 0 24px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.hero-label {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.hero-value {
+  font-family: var(--mono);
+  font-size: clamp(28px, 6vw, 38px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  word-break: break-all;
+}
+
+.hero-value.is-error {
+  color: var(--alert);
+  font-family: var(--sans);
+  font-size: 17px;
+  font-weight: 500;
+}
+
+/* ---- Readout table ---- */
+
+.readout {
+  padding-top: 6px;
+}
+
+.readout-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 13px 0;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.readout-row:last-child { border-bottom: none; }
+
+.readout-label {
+  font-size: 14px;
+  color: var(--muted);
+  flex-shrink: 0;
+}
+
+.readout-value {
+  font-size: 15px;
+  text-align: right;
+  color: var(--text);
+}
+
+.readout-value.mono {
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+/* ---- Status line ---- */
+
+.status {
+  margin-top: 22px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.status.is-error { color: var(--alert); }
+.status.is-ok { color: var(--signal); }
+
+/* ---- Responsive ---- */
+
+@media (max-width: 520px) {
+  .console-head {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .run-btn { align-self: flex-start; }
+  .route-label { display: none; }
+}
+
+/* ---- Reduced motion ---- */
+
+@media (prefers-reduced-motion: reduce) {
+  .route-line.pulsing::after { animation: none; opacity: 0; }
+  .run-btn { transition: none; }
+}
